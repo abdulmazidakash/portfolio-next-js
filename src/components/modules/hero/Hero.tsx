@@ -111,20 +111,23 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="w-full lg:w-1/2 flex justify-center lg:justify-end bg-white/10 backdrop-blur-sm rounded-lg"
+          className="w-full lg:w-1/2 flex justify-center lg:justify-end  rounded-lg"
         >
+          {/* bg-white/10 backdrop-blur-sm */}
           <motion.div 
             whileHover={{ scale: 1.05 }}
             className="relative h-75 md:h-112.5 w-64 md:w-full max-w-md rounded-2xl overflow-hidden"
           >
+            {/* https://i.ibb.co.com/MDTTzfrG/akash-portfolio-image-studio.jpg */}
             <Image
-              src="https://i.ibb.co/XkrcpbqY/abdul-mazid-akash-facebook-proflie-removebg-preview.png"
+              src="https://i.ibb.co.com/q31QJ5PK/akash-portfolio-image.png"
               alt="Abdul Mazid Akash"
               fill
               priority
-              sizes="(max-width: 768px) 256px, 450px"
               className="object-cover rounded-2xl"
             />
+            {/* https://i.ibb.co.com/q31QJ5PK/akash-portfolio-image.png */}
+            {/* https://i.ibb.co.com/WvYnrszg/akash-portfolio-image-removebg-preview.png */}
           </motion.div>
         </motion.div>
       </motion.div>
