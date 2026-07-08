@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { LaptopMinimal, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,16 +13,49 @@ import {
 import ThemeToggle from "../theme-toggle";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#education", label: "Education" },
-  { href: "#contact", label: "Contact" },
+  { href: "/", label: "Home", id: "home" },
+  { href: "#about", label: "About", id: "about" },
+  { href: "#skills", label: "Skills", id: "skills" },
+  { href: "#projects", label: "Projects", id: "projects" },
+  { href: "#education", label: "Education", id: "education" },
+  { href: "#contact", label: "Contact", id: "contact" },
 ];
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const [activeId, setActiveId] = useState("home");
+
+  useEffect(() => {
+    const sections = navLinks
+      .map((link) => document.getElementById(link.id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Among sections currently crossing the "active band", pick the one
+        // closest to the top of the viewport — avoids flicker when two
+        // sections are both partially visible.
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+        if (visible.length > 0) {
+          setActiveId(visible[0].target.id);
+        }
+      },
+      {
+        // Treat the middle band of the viewport as "active" — top 40% and
+        // bottom 55% are excluded so a section counts as active only once
+        // it's substantially in view.
+        rootMargin: "-40% 0px -55% 0px",
+        threshold: 0,
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-slate-900 shadow-lg text-white py-4 border-b border-white/10">
@@ -39,7 +72,7 @@ export default function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-2 font-semibold">
           {navLinks.map((link) => {
-            const isActive = pathname === link.href;
+            const isActive = activeId === link.id;
             return (
               <Link
                 key={link.label}
@@ -74,15 +107,20 @@ export default function Navbar() {
               align="end"
               className="bg-slate-900 border border-white/10 text-white w-48"
             >
-              {navLinks.map((link) => (
-                <DropdownMenuItem
-                  key={link.label}
-                  asChild
-                  className="hover:bg-sky-400/10 hover:text-sky-300 focus:bg-sky-400/10 focus:text-sky-300"
-                >
-                  <Link href={link.href}>{link.label}</Link>
-                </DropdownMenuItem>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = activeId === link.id;
+                return (
+                  <DropdownMenuItem
+                    key={link.label}
+                    asChild
+                    className={`hover:bg-sky-400/10 hover:text-sky-300 focus:bg-sky-400/10 focus:text-sky-300 ${
+                      isActive ? "bg-sky-400/15 text-sky-300" : ""
+                    }`}
+                  >
+                    <Link href={link.href}>{link.label}</Link>
+                  </DropdownMenuItem>
+                );
+              })}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

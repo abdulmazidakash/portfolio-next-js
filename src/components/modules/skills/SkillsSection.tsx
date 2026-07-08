@@ -1,34 +1,50 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useTheme } from "next-themes";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FaReact } from "react-icons/fa";
 import { SiMongodb, SiPostgresql, SiPrisma, SiTypescript, SiShadcnui } from "react-icons/si";
 import { RiJavascriptLine } from "react-icons/ri";
 import { TbBrandNextjs } from "react-icons/tb";
 import { FaNodeJs } from "react-icons/fa6";
 
-// Explicit interface mapping for a clean skill schema
+// ---------------------------------------------------------------------------
+// Palette (matches the rest of the site): blue = primary, teal = accent,
+// amber = small highlight only. No purple / green / orange mixed in.
+// ---------------------------------------------------------------------------
+const PRIMARY = "#2563eb"; // blue-600
+const ACCENT = "#0d9488"; // teal-600
+const HIGHLIGHT = "#d97706"; // amber-600 (used sparingly)
+
+type Category = "Frontend" | "Backend" | "Database & ORM";
+
 interface SkillItem {
   name: string;
   icon: React.ReactNode;
   proficiency: number;
-  color: string;
-  glow: string;
+  category: Category;
 }
 
+const CATEGORY_COLOR: Record<Category, string> = {
+  Frontend: PRIMARY,
+  Backend: ACCENT,
+  "Database & ORM": ACCENT,
+};
+
 const skills: SkillItem[] = [
-  { name: "JavaScript", icon: <RiJavascriptLine />, proficiency: 85, color: "#eab308", glow: "#eab30840" },
-  { name: "TypeScript", icon: <SiTypescript />, proficiency: 75, color: "#2563eb", glow: "#2563eb40" },
-  { name: "React", icon: <FaReact />, proficiency: 90, color: "#6366f1", glow: "#6366f140" },
-  { name: "MongoDB", icon: <SiMongodb />, proficiency: 80, color: "#16a34a", glow: "#16a34a40" },
-  { name: "PostgreSQL", icon: <SiPostgresql />, proficiency: 70, color: "#0ea5e9", glow: "#0ea5e940" },
-  { name: "Prisma", icon: <SiPrisma />, proficiency: 75, color: "#94a3b8", glow: "#94a3b840" },
-  { name: "Next.js", icon: <TbBrandNextjs />, proficiency: 80, color: "#e2e8f0", glow: "#e2e8f040" },
-  { name: "Node.js", icon: <FaNodeJs />, proficiency: 78, color: "#22c55e", glow: "#22c55e40" },
-  { name: "shadcn/ui", icon: <SiShadcnui />, proficiency: 85, color: "#a1a1aa", glow: "#a1a1aa40" },
+  { name: "JavaScript", icon: <RiJavascriptLine />, proficiency: 85, category: "Frontend" },
+  { name: "TypeScript", icon: <SiTypescript />, proficiency: 75, category: "Frontend" },
+  { name: "React", icon: <FaReact />, proficiency: 90, category: "Frontend" },
+  { name: "Next.js", icon: <TbBrandNextjs />, proficiency: 80, category: "Frontend" },
+  { name: "shadcn/ui", icon: <SiShadcnui />, proficiency: 85, category: "Frontend" },
+  { name: "Node.js", icon: <FaNodeJs />, proficiency: 78, category: "Backend" },
+  { name: "MongoDB", icon: <SiMongodb />, proficiency: 80, category: "Database & ORM" },
+  { name: "PostgreSQL", icon: <SiPostgresql />, proficiency: 70, category: "Database & ORM" },
+  { name: "Prisma", icon: <SiPrisma />, proficiency: 75, category: "Database & ORM" },
 ];
+
+const categories: Category[] = ["Frontend", "Backend", "Database & ORM"];
 
 const radius = 32;
 const circumference = 2 * Math.PI * radius;
@@ -43,73 +59,76 @@ const SkillCard = ({ skill, index, darkMode }: SkillCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const dashOffset = circumference - (skill.proficiency / 100) * circumference;
+  const color = CATEGORY_COLOR[skill.category];
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40, scale: 0.9 }}
+      layout
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
-      whileHover={{ y: -8, transition: { duration: 0.25 } }}
-      className={`relative group rounded-3xl p-6 flex flex-col items-center gap-4 border transition-all duration-300 overflow-hidden
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.5, delay: index * 0.04, ease: "easeOut" }}
+      whileHover={{ y: -6, transition: { duration: 0.2 } }}
+      className={`relative group rounded-2xl p-5 flex flex-col items-center gap-3 border transition-colors duration-300
         ${darkMode
-          ? "bg-gray-900/70 border-white/10 hover:border-white/20 hover:bg-gray-900/90"
-          : "bg-white border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-xl"
+          ? "bg-gray-900 border-gray-800 hover:border-gray-700"
+          : "bg-white border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md"
         }`}
     >
       {/* Top accent line */}
       <div
-        className="absolute top-0 left-6 right-6 h-0.75 rounded-b-full opacity-0 group-hover:opacity-100 transition-all duration-300"
-        style={{ background: `linear-gradient(90deg, transparent, ${skill.color}, transparent)` }}
+        className="absolute top-0 left-6 right-6 h-0.5 rounded-b-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}
       />
 
       {/* Circular Progress */}
-      <div className="relative w-24 h-24 flex items-center justify-center">
-        <svg className="absolute inset-0 -rotate-90" width="96" height="96" viewBox="0 0 96 96">
+      <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center">
+        <svg className="absolute inset-0 -rotate-90" viewBox="0 0 96 96">
           <circle
             cx="48" cy="48" r={radius}
             fill="none"
-            stroke={darkMode ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}
+            stroke={darkMode ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.08)"}
             strokeWidth="6"
           />
           <motion.circle
             cx="48" cy="48" r={radius}
             fill="none"
-            stroke={skill.color}
+            stroke={color}
             strokeWidth="6"
             strokeLinecap="round"
             strokeDasharray={circumference}
             initial={{ strokeDashoffset: circumference }}
             animate={isInView ? { strokeDashoffset: dashOffset } : {}}
-            transition={{ duration: 1.4, delay: index * 0.06 + 0.3, ease: "easeOut" }}
-            style={{ filter: `drop-shadow(0 0 6px ${skill.color})` }}
+            transition={{ duration: 1.2, delay: index * 0.05 + 0.2, ease: "easeOut" }}
           />
         </svg>
 
-        {/* Icon */}
+        {/* Icon — always explicit color, never relies on inherited/dark-mode text color,
+            so it never washes out on dark backgrounds */}
         <motion.div
           initial={{ scale: 0 }}
           animate={isInView ? { scale: 1 } : {}}
-          transition={{ duration: 0.4, delay: index * 0.06 + 0.5, type: "spring", stiffness: 180 }}
-          className="text-3xl z-10"
-          style={{ color: skill.color }}
+          transition={{ duration: 0.35, delay: index * 0.05 + 0.35, type: "spring", stiffness: 180 }}
+          className="text-2xl sm:text-3xl z-10"
+          style={{ color: darkMode ? "#f3f4f6" : "#111827" }}
         >
           {skill.icon}
         </motion.div>
       </div>
 
       {/* Skill Name */}
-      <p className={`text-base font-semibold text-center leading-tight mt-2 ${darkMode ? "text-gray-100" : "text-gray-900"}`}>
+      <p className={`text-sm sm:text-base font-semibold text-center leading-tight ${darkMode ? "text-gray-100" : "text-gray-900"}`}>
         {skill.name}
       </p>
 
       {/* Proficiency */}
       <span
-        className="text-xs font-bold px-4 py-1 rounded-full border"
+        className="text-xs font-bold px-3 py-0.5 rounded-full border"
         style={{
-          color: skill.color,
-          backgroundColor: `${skill.color}15`,
-          borderColor: `${skill.color}40`,
+          color,
+          backgroundColor: `${color}15`,
+          borderColor: `${color}40`,
         }}
       >
         {skill.proficiency}%
@@ -123,12 +142,16 @@ export default function SkillsSection() {
   const isDarkMode = resolvedTheme === "dark";
   const headingRef = useRef<HTMLDivElement>(null);
   const headingInView = useInView(headingRef, { once: true, margin: "-80px" });
+  const [activeCategory, setActiveCategory] = useState<Category | "All">("All");
+
+  const visibleSkills =
+    activeCategory === "All" ? skills : skills.filter((s) => s.category === activeCategory);
 
   return (
-    <section id="skills" className="py-20 relative overflow-hidden">
+    <section id="skills" className="py-16 md:py-24 relative overflow-hidden">
       {/* Subtle grid background */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
@@ -136,36 +159,61 @@ export default function SkillsSection() {
         }}
       />
 
-      <div className="container mx-auto px-6">
-        {/* Top Heading Section */}
+      <div className="container mx-auto px-4 sm:px-6">
+        {/* Heading */}
         <motion.div
           ref={headingRef}
           initial={{ opacity: 0, y: 30 }}
           animate={headingInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-10 md:mb-14"
         >
-          <h2 className={`text-4xl font-bold mb-3 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
-            My Skills<span className="text-purple-500">_</span>
+          <h2 className={`text-3xl sm:text-4xl font-bold mb-3 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+            My Skills<span style={{ color: HIGHLIGHT }}>_</span>
           </h2>
-          <p className={`text-sm font-medium mb-6 ${isDarkMode ? "text-purple-400" : "text-purple-600"}`}>
+          <p className={`text-sm font-medium mb-6 ${isDarkMode ? "text-blue-400" : "text-blue-600"}`}>
             Technologies & Tools I Work With
           </p>
+          <div
+            className="w-16 h-1 rounded-full mx-auto mb-8"
+            style={{ background: `linear-gradient(90deg, ${PRIMARY}, ${ACCENT})` }}
+          />
 
-          <div className="w-16 h-1 rounded-full bg-linear-to-r from-purple-500 via-indigo-500 to-emerald-400 mx-auto mb-8" />
+          {/* Category filter — wraps cleanly on small screens */}
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+            {(["All", ...categories] as const).map((cat) => {
+              const active = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium border transition-colors duration-200
+                    ${active
+                      ? "text-white border-transparent"
+                      : isDarkMode
+                        ? "text-gray-300 border-gray-700 hover:border-gray-500"
+                        : "text-gray-600 border-gray-300 hover:border-gray-400"
+                    }`}
+                  style={active ? { backgroundColor: PRIMARY } : undefined}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
         </motion.div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 md:gap-6">
-          {skills.map((skill, index) => (
-            <SkillCard 
-              key={index} 
-              skill={skill} 
-              index={index} 
-              darkMode={isDarkMode} 
-            />
-          ))}
-        </div>
+        {/* Skills Grid — responsive across every breakpoint */}
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            layout
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5 md:gap-6"
+          >
+            {visibleSkills.map((skill, index) => (
+              <SkillCard key={skill.name} skill={skill} index={index} darkMode={isDarkMode} />
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );
