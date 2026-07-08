@@ -169,7 +169,7 @@ export default function Hero() {
             className="flex justify-center lg:justify-start pt-2"
           >
             <Link
-              href="https://drive.google.com/file/d/1wVq1FbMoFVevw7zMfkUZMsh9EEIopk3R/view?usp=sharing"
+              href="https://drive.google.com/file/d/1LjGp4fAJwMfNksaJ4AfnOPyvXBFPH5Rf/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative inline-flex items-center justify-center w-full sm:w-auto min-w-48 sm:min-w-55 px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-md font-bold text-white transition-all duration-300 bg-linear-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 rounded-2xl shadow-lg hover:shadow-sky-500/20 active:scale-[0.98]"
