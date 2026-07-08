@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Lottie from "lottie-react";
 import lottieAbout from "@/assets/lottie/about.json";
+import Link from "next/link";
 
 export default function AboutMe() {
   const sectionRef = useRef(null);
@@ -28,12 +29,12 @@ export default function AboutMe() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold mb-3 text-gray-900 dark:text-white">
-            About Me<span className="text-purple-500">_</span>
+            About Me<span className="text-sky-500">_</span>
           </h2>
-          <p className="text-sm font-medium mb-6 text-purple-600 dark:text-purple-400">
+          <p className="text-sm font-medium mb-6 text-sky-600 dark:text-sky-400">
             Know more about who I am
           </p>
-          <div className="w-16 h-1 rounded-full bg-linear-to-r from-purple-500 via-indigo-500 to-emerald-400 mx-auto" />
+          <div className="w-16 h-1 rounded-full bg-linear-to-r from-sky-500 via-blue-500 to-teal-400 mx-auto" />
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
@@ -44,8 +45,13 @@ export default function AboutMe() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="lg:col-span-5 flex justify-center"
           >
-            <div className="relative rounded-3xl overflow-hidden p-4 w-full max-w-md lg:max-w-lg bg-white shadow-xl dark:bg-gray-900/70">
-              <Lottie animationData={lottieAbout} loop className="w-full h-auto" />
+            <div className="relative rounded-3xl overflow-hidden p-4 w-full max-w-md lg:max-w-lg bg-white shadow-xl dark:bg-gray-900">
+              <Lottie
+                animationData={lottieAbout}
+                loop
+                className="w-full h-auto"
+                aria-hidden="true"
+              />
             </div>
           </motion.div>
 
@@ -56,34 +62,50 @@ export default function AboutMe() {
             transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
             className="lg:col-span-7"
           >
-            <div className="rounded-3xl p-8 lg:p-10 border transition-all bg-white border-gray-100 shadow-lg dark:bg-gray-900/70 dark:border-white/10">
+            <div className="rounded-3xl p-8 lg:p-10 border transition-all bg-white border-gray-100 shadow-lg dark:bg-gray-900 dark:border-white/10">
               <div className="space-y-6 text-[15.5px] leading-relaxed">
-                <p className="text-gray-700 dark:text-gray-300">
-                  This is <span className="font-semibold text-purple-500">Abdul Mazid Akash</span>.
+                <p className="text-gray-700 dark:text-gray-300 text-justify">
+                  This is <span className="font-semibold text-sky-600 dark:text-sky-400">Abdul Mazid Akash</span>.
                   I&apos;m a student currently pursuing a B.Sc. in Textile Engineering at{" "}
                   <span className="font-medium">Narsingdi Textile Engineering College</span>.
                   My hometown is Feni, and I&apos;m currently living in Narsingdi for my studies.
                 </p>
-                <p className="text-gray-700 dark:text-gray-300">
+                <p className="text-gray-700 dark:text-gray-300 text-justify">
                   I recently completed a comprehensive web development course from{" "}
-                  <a href="https://www.programming-hero.com/" target="_blank" rel="noopener noreferrer" className="underline text-blue-500 hover:text-blue-600 transition-colors">
+                  <Link
+                    href="https://www.programming-hero.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 transition-colors"
+                  >
                     Programming Hero
-                  </a>. Currently, I&apos;m focused on building modern web applications using JavaScript, React.js, Node.js, and MongoDB.
+                  </Link>. Currently, I&apos;m focused on building modern web applications using JavaScript, React.js, Node.js, and MongoDB.
                 </p>
-                <p className="text-gray-700 dark:text-gray-300">
+                <p className="text-gray-700 dark:text-gray-300 text-justify">
                   I&apos;ve worked on several projects, including{" "}
-                  <a href="https://scholarship-hub-akash.netlify.app/" target="_blank" rel="noopener noreferrer" className="underline text-blue-500 hover:text-blue-600 transition-colors">
+                  <Link
+                    href="https://scholarship-hub-akash.netlify.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 transition-colors"
+                  >
                     ScholarshipHub
-                  </a>, a scholarship management system. One of my notable team projects is{" "}
-                  <a href="https://tickto-booking.netlify.app/" target="_blank" rel="noopener noreferrer" className="underline text-blue-500 hover:text-blue-600 transition-colors">
+                  </Link>, a scholarship management system. 
+                  One of my notable team projects is{" "}
+                  <Link
+                    href="https://tickto-booking.netlify.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 transition-colors"
+                  >
                     TickTo
-                  </a>, a bus ticket booking platform where I contributed to real-time seat selection and secure payment features.
+                  </Link>, a bus ticket booking platform where I contributed to real-time seat selection and secure payment features.
                 </p>
               </div>
             </div>
           </motion.div>
-        </div>
-      </div>
-    </section>
+        </div >
+      </div >
+    </section >
   );
 }
