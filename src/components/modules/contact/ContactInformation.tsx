@@ -19,9 +19,14 @@ const contactInfo: ContactItem[] = [
 ];
 
 export default function ContactInformation() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-
-
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  // Using a separate state for the honeypot check ensures text input autofills won't trigger it
+  const [isBotTrapChecked, setIsBotTrapChecked] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
@@ -38,34 +43,45 @@ export default function ContactInformation() {
       return;
     }
 
+    setIsSubmitting(true);
+
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
-      const res = await fetch(`${apiUrl}/send-email`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
+      // 1. Check if the response status is in the 200-299 range
+      if (!response.ok) {
+        throw new Error(`Server responded with status ${response.status}`);
+      }
 
-      if (res.ok) {
+      // 2. Only parse as JSON if the response was successful
+      const data = await response.json();
+
+      if (response.ok) {
         Swal.fire({ icon: "success", title: "Message sent", text: "Thank you! I'll get back to you soon." });
         setFormData({ name: "", email: "", message: "" });
+        setIsBotTrapChecked(false);
       } else {
         Swal.fire({ icon: "error", title: "Failed", text: data.message || "Something went wrong. Please try again." });
       }
     } catch (error) {
       Swal.fire({ icon: "error", title: "Error", text: "Network error. Please try again later." });
       console.error("Email Send Error:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-
-
   return (
     <section id="contact" className="py-20 relative overflow-hidden">
+      {/* Background Matrix Grid Overlay */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
@@ -74,7 +90,6 @@ export default function ContactInformation() {
       />
 
       <div className="container mx-auto px-6" ref={sectionRef}>
-        {/* Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -90,7 +105,7 @@ export default function ContactInformation() {
           <div className="mt-3 mx-auto w-16 h-1 rounded-full bg-linear-to-r from-sky-500 to-blue-600" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12">
+        <div className="grid lg:grid-cols-5 gap-12 relative">
           {/* Left: Contact Information */}
           <div className="lg:col-span-2 space-y-8">
             {contactInfo.map((item, index) => (
@@ -109,7 +124,6 @@ export default function ContactInformation() {
                   >
                     {item.icon}
                   </div>
-
                   <div className="pt-1">
                     <p className="uppercase tracking-widest text-xs font-medium mb-1 text-gray-500">
                       {item.label}
@@ -133,9 +147,22 @@ export default function ContactInformation() {
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="lg:col-span-3 rounded-3xl p-8 lg:p-10 border transition-all bg-white border-gray-100 shadow-lg dark:bg-gray-900 dark:border-white/10 dark:shadow-[0_10px_40px_rgba(0,0,0,0.4)]"
+            className="lg:col-span-3 relative z-10 rounded-3xl p-8 lg:p-10 border transition-all bg-white border-gray-100 shadow-lg dark:bg-gray-900 dark:border-white/10 dark:shadow-[0_10px_40px_rgba(0,0,0,0.4)]"
           >
             <form onSubmit={handleSubmit} className="space-y-7">
+
+              {/* Failproof Honeypot Checkbox Option */}
+              <div className="absolute left-[-9999px] w-px h-px opacity-0 pointer-events-none" aria-hidden="true">
+                <input
+                  type="checkbox"
+                  name="confirm_website_field"
+                  checked={isBotTrapChecked}
+                  onChange={(e) => setIsBotTrapChecked(e.target.checked)}
+                  tabIndex={-1}
+                  autoComplete="new-password"
+                />
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
@@ -148,7 +175,8 @@ export default function ContactInformation() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Your name"
-                    className="w-full h-12 px-5 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all bg-gray-50 border-gray-300 text-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
+                    disabled={isSubmitting}
+                    className="w-full h-12 px-5 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all bg-gray-50 border-gray-300 text-gray-900 disabled:opacity-60 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
                   />
                 </div>
 
@@ -163,7 +191,8 @@ export default function ContactInformation() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="you@example.com"
-                    className="w-full h-12 px-5 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all bg-gray-50 border-gray-300 text-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
+                    disabled={isSubmitting}
+                    className="w-full h-12 px-5 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all bg-gray-50 border-gray-300 text-gray-900 disabled:opacity-60 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
                   />
                 </div>
               </div>
@@ -179,17 +208,19 @@ export default function ContactInformation() {
                   onChange={handleChange}
                   rows={5}
                   placeholder="Write your message here..."
-                  className="w-full px-5 py-4 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-sky-500 resize-y min-h-40 transition-all bg-gray-50 border-gray-300 text-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
+                  disabled={isSubmitting}
+                  className="w-full px-5 py-4 rounded-2xl border focus:outline-none focus:ring-2 focus:ring-sky-500 resize-y min-h-40 transition-all bg-gray-50 border-gray-300 text-gray-900 disabled:opacity-60 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-500"
                 />
               </div>
 
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                 type="submit"
-                className="w-full px-6 py-3 text-lg rounded-xl font-medium text-white transition-all bg-linear-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700"
+                disabled={isSubmitting}
+                className="w-full px-6 py-3 text-lg rounded-xl font-medium text-white transition-all bg-linear-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </motion.button>
             </form>
           </motion.div>
