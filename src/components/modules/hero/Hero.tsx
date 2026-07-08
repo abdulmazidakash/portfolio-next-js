@@ -138,11 +138,13 @@ export default function Hero() {
           </div>
 
           <p className="text-lg md:text-xl font-medium tracking-wide text-slate-700 dark:text-slate-300">
-            Frontend Developer <span className="text-sky-500 mx-1">|</span> Web Enthusiast
+            Full Stack Developer
+            <span className="text-sky-500 mx-2">|</span>
+            Backend Specialist
           </p>
 
-          <p className="max-w-xl text-[15px] leading-relaxed mx-auto lg:mx-0 text-slate-500 dark:text-slate-400">
-            I build highly-performant, responsive web applications leveraging modern React ecosystems. Focused on writing semantic markup, clean architectures, and engaging interactive experiences.
+          <p className="max-w-2xl text-justify text-[15px] leading-relaxed mx-auto lg:mx-0 text-slate-500 dark:text-slate-400">
+            Building secure, scalable web applications with Node.js, Express.js, PostgreSQL, Prisma ORM, MongoDB, React, and Next.js.
           </p>
 
           {/* Social Media Links */}

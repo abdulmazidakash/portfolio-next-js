@@ -65,13 +65,25 @@ export default function AboutMe() {
             <div className="rounded-3xl p-8 lg:p-10 border transition-all bg-white border-gray-100 shadow-lg dark:bg-gray-900 dark:border-white/10">
               <div className="space-y-6 text-[15.5px] leading-relaxed">
                 <p className="text-gray-700 dark:text-gray-300 text-justify">
-                  This is <span className="font-semibold text-sky-600 dark:text-sky-400">Abdul Mazid Akash</span>.
-                  I&apos;m a student currently pursuing a B.Sc. in Textile Engineering at{" "}
-                  <span className="font-medium">Narsingdi Textile Engineering College</span>.
-                  My hometown is Feni, and I&apos;m currently living in Narsingdi for my studies.
+                  This is{" "}
+                  <span className="font-semibold text-sky-600 dark:text-sky-400">
+                    Abdul Mazid Akash
+                  </span>
+                  . I&apos;m a{" "}
+                  <span className="font-medium">
+                    Textile Engineer and Full Stack Developer
+                  </span>{" "}
+                  who completed my B.Sc. in Textile Engineering from{" "}
+                  <span className="font-medium">
+                    Narsingdi Textile Engineering College
+                  </span>{" "}
+                  in June 2026. Although my academic background is in textile engineering,
+                  my passion for technology has driven me to build scalable and modern web
+                  applications.
                 </p>
+
                 <p className="text-gray-700 dark:text-gray-300 text-justify">
-                  I recently completed a comprehensive web development course from{" "}
+                  I completed a comprehensive web development program from{" "}
                   <Link
                     href="https://www.programming-hero.com/"
                     target="_blank"
@@ -79,10 +91,18 @@ export default function AboutMe() {
                     className="underline text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 transition-colors"
                   >
                     Programming Hero
-                  </Link>. Currently, I&apos;m focused on building modern web applications using JavaScript, React.js, Node.js, and MongoDB.
+                  </Link>
+                  , where I gained hands-on experience with modern web technologies.
+                  Currently, I specialize in building full-stack applications using{" "}
+                  <span className="font-medium">
+                    JavaScript, React.js, Next.js, Node.js, Express.js, PostgreSQL,
+                    Prisma ORM, and MongoDB
+                  </span>
+                  , focusing on clean architecture, secure APIs, and user-friendly interfaces.
                 </p>
+
                 <p className="text-gray-700 dark:text-gray-300 text-justify">
-                  I&apos;ve worked on several projects, including{" "}
+                  I have developed several real-world projects, including{" "}
                   <Link
                     href="https://scholarship-hub-akash.netlify.app/"
                     target="_blank"
@@ -90,8 +110,8 @@ export default function AboutMe() {
                     className="underline text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 transition-colors"
                   >
                     ScholarshipHub
-                  </Link>, a scholarship management system. 
-                  One of my notable team projects is{" "}
+                  </Link>
+                  , a scholarship management platform, and{" "}
                   <Link
                     href="https://tickto-booking.netlify.app/"
                     target="_blank"
@@ -99,7 +119,10 @@ export default function AboutMe() {
                     className="underline text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300 transition-colors"
                   >
                     TickTo
-                  </Link>, a bus ticket booking platform where I contributed to real-time seat selection and secure payment features.
+                  </Link>
+                  , a bus ticket booking system where I contributed to features like real-time
+                  seat selection and secure booking workflows. I enjoy solving problems,
+                  learning new technologies, and creating impactful digital solutions.
                 </p>
               </div>
             </div>

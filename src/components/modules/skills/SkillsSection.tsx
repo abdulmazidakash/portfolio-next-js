@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FaReact } from "react-icons/fa";
-import { SiMongodb, SiPostgresql, SiPrisma, SiTypescript, SiShadcnui } from "react-icons/si";
+import { SiMongodb, SiPostgresql, SiPrisma, SiTypescript, SiShadcnui, SiExpress } from "react-icons/si";
 import { RiJavascriptLine } from "react-icons/ri";
 import { TbBrandNextjs } from "react-icons/tb";
 import { FaNodeJs } from "react-icons/fa6";
@@ -39,6 +39,7 @@ const skills: SkillItem[] = [
   { name: "Next.js", icon: <TbBrandNextjs />, proficiency: 80, category: "Frontend" },
   { name: "shadcn/ui", icon: <SiShadcnui />, proficiency: 85, category: "Frontend" },
   { name: "Node.js", icon: <FaNodeJs />, proficiency: 78, category: "Backend" },
+  { name: "Express.js", icon: <SiExpress />, proficiency: 82, category: "Backend" },
   { name: "MongoDB", icon: <SiMongodb />, proficiency: 80, category: "Database & ORM" },
   { name: "PostgreSQL", icon: <SiPostgresql />, proficiency: 70, category: "Database & ORM" },
   { name: "Prisma", icon: <SiPrisma />, proficiency: 75, category: "Database & ORM" },
