@@ -9,13 +9,9 @@ import { RiJavascriptLine } from "react-icons/ri";
 import { TbBrandNextjs } from "react-icons/tb";
 import { FaNodeJs } from "react-icons/fa6";
 
-// ---------------------------------------------------------------------------
-// Palette (matches the rest of the site): blue = primary, teal = accent,
-// amber = small highlight only. No purple / green / orange mixed in.
-// ---------------------------------------------------------------------------
 const PRIMARY = "#2563eb"; // blue-600
 const ACCENT = "#0d9488"; // teal-600
-const HIGHLIGHT = "#d97706"; // amber-600 (used sparingly)
+const HIGHLIGHT = "#d97706"; // amber-600
 
 type Category = "Frontend" | "Backend" | "Database & ORM";
 
@@ -77,13 +73,11 @@ const SkillCard = ({ skill, index, darkMode }: SkillCardProps) => {
           : "bg-white border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md"
         }`}
     >
-      {/* Top accent line */}
       <div
         className="absolute top-0 left-6 right-6 h-0.5 rounded-b-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}
       />
 
-      {/* Circular Progress */}
       <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center">
         <svg className="absolute inset-0 -rotate-90" viewBox="0 0 96 96">
           <circle
@@ -105,8 +99,6 @@ const SkillCard = ({ skill, index, darkMode }: SkillCardProps) => {
           />
         </svg>
 
-        {/* Icon — always explicit color, never relies on inherited/dark-mode text color,
-            so it never washes out on dark backgrounds */}
         <motion.div
           initial={{ scale: 0 }}
           animate={isInView ? { scale: 1 } : {}}
@@ -118,12 +110,10 @@ const SkillCard = ({ skill, index, darkMode }: SkillCardProps) => {
         </motion.div>
       </div>
 
-      {/* Skill Name */}
       <p className={`text-sm sm:text-base font-semibold text-center leading-tight ${darkMode ? "text-gray-100" : "text-gray-900"}`}>
         {skill.name}
       </p>
 
-      {/* Proficiency */}
       <span
         className="text-xs font-bold px-3 py-0.5 rounded-full border"
         style={{
@@ -150,7 +140,6 @@ export default function SkillsSection() {
 
   return (
     <section id="skills" className="py-16 md:py-24 relative overflow-hidden">
-      {/* Subtle grid background */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
@@ -180,31 +169,39 @@ export default function SkillsSection() {
             style={{ background: `linear-gradient(90deg, ${PRIMARY}, ${ACCENT})` }}
           />
 
-          {/* Category filter — wraps cleanly on small screens */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-            {(["All", ...categories] as const).map((cat) => {
-              const active = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium border transition-colors duration-200
-                    ${active
-                      ? "text-white border-transparent"
-                      : isDarkMode
-                        ? "text-gray-300 border-gray-700 hover:border-gray-500"
-                        : "text-gray-600 border-gray-300 hover:border-gray-400"
+          {/* Clean Interactive Filter Tabs Wrapper */}
+          <div className="flex justify-center mb-12">
+            <div className="bg-gray-100 dark:bg-gray-900/60 p-1.5 rounded-2xl border border-gray-200/60 dark:border-white/5 inline-flex flex-wrap gap-2 justify-center isolate">
+              {(["All", ...categories] as const).map((cat) => {
+                const active = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`px-5 py-2 text-xs sm:text-sm font-medium rounded-xl capitalize transition-colors relative duration-200 ${
+                      active
+                        ? "text-white dark:text-white mix-blend-normal drop-shadow-xs"
+                        : isDarkMode
+                          ? "text-gray-300 hover:text-white"
+                          : "text-gray-600 hover:text-gray-900"
                     }`}
-                  style={active ? { backgroundColor: PRIMARY } : undefined}
-                >
-                  {cat}
-                </button>
-              );
-            })}
+                  >
+                    {active && (
+                      <motion.div
+                        layoutId="activeSkillTabBg"
+                        className="absolute inset-0 bg-linear-to-r from-sky-500 to-blue-600 rounded-xl z-0"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{cat}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </motion.div>
 
-        {/* Skills Grid — responsive across every breakpoint */}
+        {/* Skills Grid */}
         <AnimatePresence mode="popLayout">
           <motion.div
             layout

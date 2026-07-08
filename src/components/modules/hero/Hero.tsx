@@ -37,7 +37,6 @@ const socialLinks = [
   { href: "https://www.facebook.com/akashabdulmazid/", label: "Facebook", icon: FacebookIcon },
 ];
 
-// Custom, hydration-safe typewriter hook to stop layout jumps
 function useTypewriter(words: string[], speed = 90, deleteSpeed = 50, delaySpeed = 1500) {
   const [text, setText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
@@ -89,13 +88,12 @@ export default function Hero() {
   );
 
   return (
-    <div className="relative flex min-h-[85vh] items-center justify-center overflow-hidden rounded-3xl p-6 md:p-12 lg:p-16 my-4 transition-colors duration-500">
-      {/* Background Decorative Radial Gradient - blue/sky */}
+    <div id="home" className="relative flex min-h-[85vh] lg:min-h-[80vh] items-center justify-center overflow-hidden rounded-3xl px-4 py-8 sm:p-6 md:p-12 lg:p-16 mt-4 transition-colors duration-500">
+      {/* Background Decorative Radial Gradient */}
       <div
         className="absolute inset-0 opacity-[0.04] dark:opacity-[0.08] transition-opacity duration-500 pointer-events-none"
         style={{
-          backgroundImage:
-            "radial-gradient(circle at 50% 50%, #378ADD 0%, transparent 60%)",
+          backgroundImage: "radial-gradient(circle at 50% 50%, #378ADD 0%, transparent 60%)",
         }}
       />
 
@@ -114,11 +112,11 @@ export default function Hero() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-8 container mx-auto px-4"
+        className="relative z-10 flex flex-col-reverse lg:flex-row items-center justify-between gap-8 lg:gap-8 container mx-auto"
       >
-        {/* Left Side - Biography / Copywriting */}
-        <div className="w-full lg:w-3/5 text-center lg:text-left space-y-6">
-          <div className="space-y-3">
+        {/* Left Side - Biography */}
+        <div className="w-full lg:w-3/5 text-center lg:text-left space-y-5 md:space-y-6">
+          <div className="space-y-2 md:space-y-3">
             <motion.p
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -129,26 +127,26 @@ export default function Hero() {
               Available for innovative roles
             </motion.p>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-slate-900 dark:text-slate-50">
-              Hi, This is <br />
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-slate-900 dark:text-slate-50">
+              Hi, This is <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-sky-500 via-blue-600 to-teal-500">
                 Abdul Mazid Akash
               </span>
             </h1>
           </div>
 
-          <p className="text-lg md:text-xl font-medium tracking-wide text-slate-700 dark:text-slate-300">
+          <p className="text-base sm:text-lg md:text-xl font-medium tracking-wide text-slate-700 dark:text-slate-300">
             Full Stack Developer
             <span className="text-sky-500 mx-2">|</span>
             Backend Specialist
           </p>
 
-          <p className="max-w-2xl text-justify text-[15px] leading-relaxed mx-auto lg:mx-0 text-slate-500 dark:text-slate-400">
+          <p className="max-w-2xl text-justify text-sm sm:text-[15px] leading-relaxed mx-auto lg:mx-0 text-slate-500 dark:text-slate-400">
             Building secure, scalable web applications with Node.js, Express.js, PostgreSQL, Prisma ORM, MongoDB, React, and Next.js.
           </p>
 
           {/* Social Media Links */}
-          <div className="flex justify-center lg:justify-start gap-4 pt-2">
+          <div className="flex justify-center lg:justify-start gap-3 md:gap-4 pt-1">
             {socialLinks.map(({ href, label, icon: Icon }) => (
               <Link
                 key={label}
@@ -156,7 +154,7 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="p-3 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none border-slate-200 bg-white text-slate-700 hover:text-slate-950 hover:border-sky-500/40 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:text-white dark:hover:border-sky-400/40"
+                className="p-2.5 sm:p-3 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg focus:outline-none border-slate-200 bg-white text-slate-700 hover:text-slate-950 hover:border-sky-500/40 dark:border-slate-800 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:text-white dark:hover:border-sky-400/40"
               >
                 <Icon />
               </Link>
@@ -168,13 +166,13 @@ export default function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex justify-center lg:justify-start pt-4"
+            className="flex justify-center lg:justify-start pt-2"
           >
             <Link
               href="https://drive.google.com/file/d/1wVq1FbMoFVevw7zMfkUZMsh9EEIopk3R/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center justify-center min-w-55 px-8 py-4 text-md font-bold text-white transition-all duration-300 bg-linear-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 rounded-2xl shadow-lg hover:shadow-sky-500/20 active:scale-[0.98]"
+              className="group relative inline-flex items-center justify-center w-full sm:w-auto min-w-48 sm:min-w-55 px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-md font-bold text-white transition-all duration-300 bg-linear-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 rounded-2xl shadow-lg hover:shadow-sky-500/20 active:scale-[0.98]"
             >
               <span>{typewriterText}</span>
               <span className="ml-1 animate-pulse">_</span>
@@ -182,32 +180,28 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Side - Glassmorphic Studio Framed Portrait */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="w-full lg:w-2/5 flex justify-center lg:justify-end"
-        >
-          <div className="relative p-3 rounded-[32px] border transition-colors duration-500 shadow-2xl bg-black/5 border-black/10 dark:bg-white/5 dark:border-white/10">
+        {/* Right Side - Fluid Aspect Portrait Framework */}
+        <div className="w-full max-w-70 sm:max-w-85 md:max-w-95 lg:w-2/5 flex justify-center lg:justify-end mb-4 lg:mb-0 mt-6 lg:mt-0">
+          <div className="w-full p-2.5 sm:p-3 rounded-[28px] sm:rounded-[32px] border transition-colors duration-500 shadow-2xl bg-black/5 border-black/10 dark:bg-white/5 dark:border-white/10">
             <motion.div
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
-              className="relative h-85 w-72 md:h-115 md:w-95 rounded-[24px] overflow-hidden shadow-2xl bg-slate-900"
+              className="relative w-full aspect-4/5 rounded-[20px] sm:rounded-[24px] overflow-hidden shadow-2xl bg-slate-900"
             >
               <div className="absolute inset-0 bg-linear-to-t from-slate-950/30 via-transparent to-transparent z-10 pointer-events-none" />
 
               <Image
-                src={`https://i.ibb.co.com/JF5ZpTPC/portfolio-hero-section-latest.png`}
+                src="https://i.ibb.co.com/JF5ZpTPC/portfolio-hero-section-latest.png"
                 alt="Abdul Mazid Akash"
                 fill
                 priority
-                className="object-cover h-auto w-auto"
+                sizes="(max-width: 640px) 280px, (max-width: 768px) 340px, 380px"
+                className="object-cover"
               />
             </motion.div>
           </div>
-        </motion.div>
-      </motion.div >
-    </div >
+        </div>
+      </motion.div>
+    </div>
   );
 }

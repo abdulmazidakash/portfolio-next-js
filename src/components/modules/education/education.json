@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "type": "course",
+    "degree": "Next Level Web Development",
+    "field": "Advanced Web Ecosystem",
+    "major": "Next.js & TypeScript",
+    "result": "Completed Certification",
+    "institution": "Programming Hero",
+    "shortName": "PH",
+    "duration": "Nov 2025 - Jul 2026",
+    "status": "completed",
+    "coursework": [
+      "Next.js App Router & Server Actions",
+      "TypeScript & Object Oriented Programming",
+      "Redux Toolkit & Advanced State Management",
+      "Prisma ORM & PostgreSQL/Mongoose",
+      "Docker basics & Next.js production scaling"
+    ],
+    "icon": "FaRocket",
+    "color": "#e11d48",
+    "badgeColor": "bg-rose-100 text-rose-700 border border-rose-200 dark:bg-rose-500/10 dark:text-rose-300 dark:border-rose-500/20"
+  },
+  {
+    "id": 2,
+    "type": "course",
+    "degree": "Complete Web Development Course",
+    "field": "Full-Stack Development",
+    "major": "MERN Stack",
+    "result": "Completed Certification",
+    "institution": "Programming Hero",
+    "shortName": "PH",
+    "duration": "Jun 2024 - Feb 2025",
+    "status": "completed",
+    "coursework": [
+      "JavaScript (ES6+) & DOM Manipulation",
+      "React.js Single Page Applications",
+      "Node.js & Express.js Backend Rest APIs",
+      "MongoDB Database Design & CRUD Operations",
+      "Tailwind CSS & Responsive UI Paradigms"
+    ],
+    "icon": "FaLaptopCode",
+    "color": "#7c3aed",
+    "badgeColor": "bg-violet-100 text-violet-700 border border-violet-200 dark:bg-violet-500/10 dark:text-violet-300 dark:border-violet-500/20"
+  },
+  {
+    "id": 3,
+    "type": "academic",
+    "degree": "Bachelor Of Science",
+    "field": "Textile Engineering",
+    "major": "Apparel Engineering",
+    "result": "CGPA 3.09 / 4.00",
+    "institution": "Narsingdi Textile Engineering College",
+    "shortName": "NTEC",
+    "duration": "2021 - June 2026",
+    "status": "completed",
+    "coursework": [
+      "Textile Fibers",
+      "Yarn Manufacturing",
+      "Fabric Structure & Design",
+      "Textile Testing and Quality Control",
+      "Textile Production Management"
+    ],
+    "icon": "FaGraduationCap",
+    "color": "#0284c7",
+    "badgeColor": "bg-sky-100 text-sky-700 border border-sky-200 dark:bg-sky-500/10 dark:text-sky-300 dark:border-sky-500/20"
+  },
+  {
+    "id": 4,
+    "type": "academic",
+    "degree": "Diploma In",
+    "field": "Textile Engineering",
+    "major": "Textile Engineering",
+    "result": "CGPA 3.82 / 4.00",
+    "institution": "Chattogram Textile Institute",
+    "shortName": "CTI",
+    "duration": "2016 - 2020",
+    "status": "completed",
+    "coursework": [
+      "Textile Raw Materials",
+      "Spinning Technology",
+      "Weaving Technology",
+      "Dyeing & Finishing",
+      "Industrial Training in Textile Mills"
+    ],
+    "icon": "MdSchool",
+    "color": "#0d9488",
+    "badgeColor": "bg-teal-100 text-teal-700 border border-teal-200 dark:bg-teal-500/10 dark:text-teal-300 dark:border-teal-500/20"
+  },
+  {
+    "id": 5,
+    "type": "academic",
+    "degree": "Secondary School Certificate",
+    "field": "SSC",
+    "major": "Science",
+    "result": "GPA 4.67 / 5.00",
+    "institution": "Baktermunshi Moazzem Hossen High School",
+    "shortName": "School",
+    "duration": "2016",
+    "status": "completed",
+    "coursework": ["Physics", "Chemistry", "Mathematics", "Biology", "Bangla & English"],
+    "icon": "FaAward",
+    "color": "#d97706",
+    "badgeColor": "bg-amber-100 text-amber-700 border border-amber-200 dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20"
+  }
+]
