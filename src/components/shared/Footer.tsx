@@ -11,17 +11,26 @@ const footerLinks = [
   { href: "#contact", label: "Contact" },
 ];
 
+const socialLinks = [
+  { href: "https://github.com/abdulmazidakash", label: "GitHub", icon: FaGithub },
+  { href: "https://www.linkedin.com/in/abdulmazidakash/", label: "LinkedIn", icon: FaLinkedin },
+  { href: "https://x.com/abdulmazidakash", label: "Twitter", icon: FaXTwitter },
+];
+
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 p-10 font-semibold text-white mt-8">
+    <footer className="bg-slate-900 p-10 font-semibold text-white border-t border-white/10">
       <div className="flex flex-col items-center gap-6">
         {/* Navigation Links */}
-        <nav className="flex flex-wrap justify-center gap-4">
+        <nav
+          aria-label="Footer navigation"
+          className="flex flex-wrap justify-center gap-4"
+        >
           {footerLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className="hover:underline"
+              className="text-white/90 hover:text-sky-300 hover:underline underline-offset-4 transition-colors duration-300"
             >
               {link.label}
             </Link>
@@ -29,40 +38,23 @@ export default function Footer() {
         </nav>
 
         {/* Social Links */}
-        <nav className="flex justify-center gap-6">
-          <Link
-            href="https://github.com/abdulmazidakash"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="hover:text-primary transition"
-          >
-            <FaGithub size={24} />
-          </Link>
-
-          <Link
-            href="https://www.linkedin.com/in/abdulmazidakash/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="hover:text-primary transition"
-          >
-            <FaLinkedin size={24} />
-          </Link>
-
-          <Link
-            href="https://x.com/abdulmazidakash"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Twitter"
-            className="hover:text-primary transition"
-          >
-            <FaXTwitter size={24} />
-          </Link>
+        <nav aria-label="Social media links" className="flex justify-center gap-6">
+          {socialLinks.map(({ href, label, icon: Icon }) => (
+            <Link
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="text-white/90 hover:text-sky-300 hover:scale-110 transition-all duration-300"
+            >
+              <Icon size={24} />
+            </Link>
+          ))}
         </nav>
 
         <aside className="text-center">
-          <p>
+          <p className="font-normal text-sm text-white/60">
             © {new Date().getFullYear()} - All rights reserved by Abdul Mazid
             Akash
           </p>
