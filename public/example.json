@@ -1,0 +1,23 @@
+[
+    {
+        "id": 2,
+        "name": "GlobalVisaHub",
+        "imageUrl": "https://i.ibb.co/Z6fLkkMD/global-visa-hub.jpg",
+        "technologies": [
+            "React",
+            "Tailwind CSS",
+            "MongoDB"
+        ],
+        "description": "A user-friendly Global Visa Hub platform that simplifies the process of exploring, applying, and managing visa applications.",
+        "liveLink": "https://assignment-10-global-visa-hub-akash.netlify.app",
+        "githubLink": "https://github.com/abdulmazidakash/c-assignment-10-visa-navigating-client",
+        "challenges": [
+            " At the top of the “All visas” page, Add a dropdown menu where you will implement filter functionality based on visa types.",
+            " Implement Search functionality on the “My visa applications” page based on the country name through an input field and a search button.",
+            " Implement a dark/light theme toggle for the home page."
+        ],
+        "improvements": [
+            "Implement advanced search and tagging functionalities."
+        ]
+    }
+]

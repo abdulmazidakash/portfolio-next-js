@@ -1,52 +1,78 @@
 [
-    {
-      "id": 1,
-      "name": "ScholarshipHub",
-      "imageUrl": "https://i.ibb.co/KpypCWf0/sholarship-Hub-banner.jpg",
-      "technologies": ["React", "Tailwind CSS", "MongoDB", "Stripe"],
-      "description":
-        "ScholarshipHub is a comprehensive Scholarship Management System designed to assist students in searching for suitable universities and scholarships. It also facilitates the application process, allowing students to apply for scholarships directly through the platform. The system supports three types of users: default users, administrators, and moderators. Upon registration, a user is assigned the 'user' role by default. Administrators have the capability to change user roles as needed.",
-      "liveLink": "https://scholarship-hub-akash.netlify.app",
-      "githubLink": "https://github.com/abdulmazidakash/c-assignment-12-client-side",
-      "challenges": [
-        " Make a pagination in all Scholarship pages",
-        " Implement sorting/filtering function in Manage Applied Application in moderator and admin Dashboard.",
-        "  Implement an analytics Chart page in the Admin dashboard"
-      ],
-      "improvements": [
-        "Add AI-powered recommendations.",
-        "Optimize performance for faster loading."
-      ]
-    },
-    {
-      "id": 2,
-      "name": "GlobalVisaHub",
-      "imageUrl": "https://i.ibb.co/Z6fLkkMD/global-visa-hub.jpg",
-      "technologies": ["React", "Tailwind CSS", "MongoDB"],
-      "description":
-        "A user-friendly Global Visa Hub platform that simplifies the process of exploring, applying, and managing visa applications.",
-      "liveLink": "https://assignment-10-global-visa-hub-akash.netlify.app",
-      "githubLink": "https://github.com/abdulmazidakash/c-assignment-10-visa-navigating-client",
-      "challenges": [
-        " At the top of the “All visas” page, Add a dropdown menu where you will implement filter functionality based on visa types.",
-        " Implement Search functionality on the “My visa applications” page based on the country name through an input field and a search button.",
-        " Implement a dark/light theme toggle for the home page."
-      ],
-      "improvements": ["Implement advanced search and tagging functionalities."]
-    },
-    {
-      "id": 3,
-      "name": "Artifact Atlas",
-      "imageUrl": "https://i.ibb.co/Tq0Pp0cf/artifacts-banner-image.jpg",
-      "technologies": ["React", "Tailwind CSS", "MongoDB"],
-      "description":
-        "Artifact Atlas is an interactive web platform for exploring and managing historical artifacts.",
-      "liveLink": "https://assignment-11-artifact-atlas.netlify.app",
-      "githubLink": "https://github.com/abdulmazidakash/c-assignment-11",
-      "challenges": [
-        "Toggle Like Button The Like Button allows users to toggle between Liked and Disliked states.",
-        "Search Functionality On the top of the All Artifacts Page"
-      ],
-      "improvements": [" Add a spinner when the data is in a loading state."]
-    }
-  ]
+  {
+    "id": 1,
+    "name": "FoodHub",
+    "imageUrl": "https://i.ibb.co.com/qFjL8cTJ/foodhub-mockup.png",
+    "technologies": [
+      "Next.js 16",
+      "TypeScript",
+      "Tailwind CSS",
+      "ShadCN UI",
+      "React Hook Form",
+      "Zod",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Prisma ORM",
+      "JWT"
+    ],
+    "description": "FoodHub is a full-stack meal ordering platform with role-based access for Customer, Provider, and Admin. Customers can browse meals, add to cart, place Cash on Delivery orders, track orders, and leave reviews. Providers can manage their menus and orders, while Admins can oversee users and platform activities. Built with modern technologies and a fully responsive design.",
+    "liveLink": "https://assignment-frontend-seven-ecru.vercel.app",
+    "githubLink": "https://github.com/abdulmazidakash/next-level-assignment-04",
+    "challenges": [
+      "Implement role-based authentication and authorization for three different user roles",
+      "Manage complex order flow states (PLACED → PREPARING → READY → DELIVERED → CANCELLED)",
+      "Build separate dashboards for Customer, Provider, and Admin with different permissions",
+      "Handle real-time order status updates across different user roles"
+    ],
+    "improvements": [
+      "Integrate online payment gateway (Stripe/Razorpay)",
+      "Add real-time notifications using Socket.io",
+      "Implement delivery tracking with map integration",
+      "Add advanced filtering and search with better UX"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "ScholarshipHub",
+    "imageUrl": "https://i.ibb.co.com/dwQGpYJH/scholarshiphub-mockup.png",
+    "technologies": [
+      "React",
+      "Tailwind CSS",
+      "MongoDB",
+      "Stripe"
+    ],
+    "description": "ScholarshipHub is a comprehensive Scholarship Management System designed to assist students in searching for suitable universities and scholarships. It also facilitates the application process, allowing students to apply for scholarships directly through the platform. The system supports three types of users: default users, administrators, and moderators. Upon registration, a user is assigned the 'user' role by default. Administrators have the capability to change user roles as needed.",
+    "liveLink": "https://scholarship-hub-akash.netlify.app",
+    "githubLink": "https://github.com/abdulmazidakash/c-assignment-12-client-side",
+    "challenges": [
+      " Make a pagination in all Scholarship pages",
+      " Implement sorting/filtering function in Manage Applied Application in moderator and admin Dashboard.",
+      "  Implement an analytics Chart page in the Admin dashboard"
+    ],
+    "improvements": [
+      "Add AI-powered recommendations.",
+      "Optimize performance for faster loading."
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Artifact Atlas",
+    "imageUrl": "https://i.ibb.co.com/DfqSbtq8/artifacts-mockup.png",
+    "technologies": [
+      "React",
+      "Tailwind CSS",
+      "MongoDB"
+    ],
+    "description": "Artifact Atlas is an interactive web platform for exploring and managing historical artifacts.",
+    "liveLink": "https://assignment-11-artifact-atlas.netlify.app",
+    "githubLink": "https://github.com/abdulmazidakash/c-assignment-11",
+    "challenges": [
+      "Toggle Like Button The Like Button allows users to toggle between Liked and Disliked states.",
+      "Search Functionality On the top of the All Artifacts Page"
+    ],
+    "improvements": [
+      " Add a spinner when the data is in a loading state."
+    ]
+  }
+]
